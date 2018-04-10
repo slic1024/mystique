@@ -98,7 +98,7 @@ exercises.push(new Exercise(5,1,7,
          new SolutionCell(2,2,"WHITE"),
          new SolutionCell(3,2,"WHITE"),
          new SolutionCell(4,2,"WHITE"),
-         new SolutionCell(3,1,"WHITE")]
+         new SolutionCell(3,1,"WHITE")],true
 ));
 exercises.push(new Exercise(6,1,4,
     "<h3>Test</h3>" ,
@@ -108,6 +108,11 @@ exercises.push(new Exercise(6,1,4,
         {"row":0,"column":3,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/black_02.png"}],
     false
 ));
+exercises.push(new Exercise(7,1,6,
+    "<h3>Test 2</h3>",
+    [{"row":0,"column":5,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":1,"column":4,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":2,"column":3,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":3,"column":2,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":4,"column":1,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":5,"column":0,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"}]
+    , false
+    ));
 
 
 // =====================================================================================================================
