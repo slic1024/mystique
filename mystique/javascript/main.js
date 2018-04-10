@@ -8,12 +8,13 @@ var exercises = [];
 var currentExerciseId=1;
 var currentConceptId=1;
 var fireworks = false;
-function Exercise(concept_id, exercise_id, array_length, exerciseDetails, solution){
+function Exercise(concept_id, exercise_id, array_length, exerciseDetails, solution, solutionLoaded){
     this.concept_id = concept_id;
     this.exercise_id = exercise_id;
     this.array_length = array_length;
     this.exerciseDetails = exerciseDetails;
     this.solution = solution;
+    this.solutionLoaded = solutionLoaded;
 }
 function SolutionCell(x,y,lego){
     this.x = x;
@@ -26,29 +27,15 @@ exercises.push(new Exercise(1,1,4,
     "<h3>Reflect Vertical Demo 1</h3>" +
     "<p>Reflect the following artifact vertically:</p>" +
     "<img src ='images/pixelArt-4.jpg' height = '500' width = '500'>",
-    [   new SolutionCell(0,0,"RED"),
-        new SolutionCell(0,1,"RED"),
-        new SolutionCell(0,2,"RED"),
-        new SolutionCell(0,3,"RED"),
-        new SolutionCell(1,0,"RED"),
-        new SolutionCell(1,2,"RED"),
-        new SolutionCell(2,0,"RED"),
-        new SolutionCell(2,1,"RED"),
-        new SolutionCell(3,0,"RED")]
+    [  {"row":0,"column":3,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":0,"column":2,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":0,"column":1,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":0,"column":0,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":1,"column":3,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":1,"column":1,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":2,"column":3,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":2,"column":2,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":3,"column":3,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"}],
+    false
 ));
 exercises.push(new Exercise(2,1,4,
     "<h3>Reflect Horizontal Demo 1</h3>" +
     "<p>Reflect the following artifact horizontally:</p>" +
     "<img src ='images/pixelArt-4.jpg' height = '500' width = '500'>",
-    [   new SolutionCell(0,3,"RED"),
-        new SolutionCell(1,3,"RED"),
-        new SolutionCell(2,3,"RED"),
-        new SolutionCell(3,3,"RED"),
-        new SolutionCell(3,0,"RED"),
-        new SolutionCell(3,1,"RED"),
-        new SolutionCell(3,2,"RED"),
-        new SolutionCell(2,1,"RED"),
-        new SolutionCell(1,2,"RED")]
+    [   {"row":3,"column":0,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":3,"column":1,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":3,"column":2,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":3,"column":3,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":2,"column":0,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":1,"column":0,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":0,"column":0,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":2,"column":2,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"},{"row":1,"column":1,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png"}],
+    false
 ));
 exercises.push(new Exercise(3,1,7,
     "<h3>Rotate 90 Demo 1</h3>" +
@@ -113,8 +100,64 @@ exercises.push(new Exercise(5,1,7,
          new SolutionCell(4,2,"WHITE"),
          new SolutionCell(3,1,"WHITE")]
 ));
+exercises.push(new Exercise(6,1,4,
+    "<h3>Test</h3>" ,
+    [{"row":0,"column":0,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/black_02.png"},
+        {"row":0,"column":1,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/black_02.png"},
+        {"row":0,"column":2,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/black_02.png"},
+        {"row":0,"column":3,"color":"http://localhost:63342/grid_lite/grid_lite/bricklayercolors/black_02.png"}],
+    false
+));
 
 
+// =====================================================================================================================
+function imageToLego(data) {
+    console.log(data);
+    switch (data){
+        case "http://localhost:63342/grid_lite/grid_lite/bricklayercolors/black_02.png":
+            return "BLACK";
+            break;
+        case "http://localhost:63342/grid_lite/grid_lite/bricklayercolors/blue_02.png":
+            return "BLUE";
+            break;
+        case "http://localhost:63342/grid_lite/grid_lite/bricklayercolors/red_02.png":
+            return "RED";
+            break;
+        case "http://localhost:63342/grid_lite/grid_lite/bricklayercolors/green_02.png":
+            return "GREEN";
+            break;
+        case "http://localhost:63342/grid_lite/grid_lite/bricklayercolors/yellow_02.png":
+            return "YELLOW";
+            break;
+        case "http://localhost:63342/grid_lite/grid_lite/bricklayercolors/gray_02.png":
+            return "GRAY";
+            break;
+        case "http://localhost:63342/grid_lite/grid_lite/bricklayercolors/white_02.png":
+            return "WHITE";
+            break;
+    }
+}
+// =====================================================================================================================
+function updateJsonSolution(conceptId,exerciseId) {
+    var tempSolution = [];
+    var maxSide= 0;
+    for(i=0; i<exercises.length;i++) {
+        if (exercises[i].concept_id == conceptId && exercises[i].exercise_id == exerciseId) {
+            for (var k = 0; k < exercises[i].solution.length; k++) {
+                if (exercises[i].solution[k].row > maxSide)
+                    maxSide = exercises[i].solution[k].row;
+                else if (exercises[i].solution[k].column > maxSide)
+                    maxSide = exercises[i].solution[k].column;
+            }
+            tempSolution = exercises[i].solution;
+            exercises[i].solution = [];
+            for (var j = 0; j < tempSolution.length; j++) {
+                exercises[i].solution.push(new SolutionCell(tempSolution[j].row, maxSide - tempSolution[j].column, imageToLego(tempSolution[j].color)));
+            }
+            exercises[i].solutionLoaded = true;
+        }
+    }
+}
 // =====================================================================================================================
 function loadExercise(concept_id,exercise_id) {
     if(fireworks){
@@ -125,6 +168,8 @@ function loadExercise(concept_id,exercise_id) {
     for(var i=0; i<exercises.length;i++){
         if (exercises[i].concept_id == currentConceptId && exercises[i].exercise_id == currentExerciseId) {
             document.getElementById("Exercise").innerHTML = exercises[i].exerciseDetails;
+            if(!exercises[i].solutionLoaded)
+            updateJsonSolution(currentConceptId,currentExerciseId);
             if(gameLoaded){
                 updateGame(exercises[i].array_length);
             } else {
